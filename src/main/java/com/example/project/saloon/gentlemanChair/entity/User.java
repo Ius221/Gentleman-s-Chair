@@ -1,7 +1,11 @@
 package com.example.project.saloon.gentlemanChair.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,11 +24,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     private String username;
 
+    @NotNull
     private String email;
 
+    @NotNull
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Roles role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

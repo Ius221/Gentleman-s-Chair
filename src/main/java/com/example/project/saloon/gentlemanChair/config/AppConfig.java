@@ -19,4 +19,5 @@ public class AppConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration){
         return configuration.getAuthenticationManager();
     }
+
 }

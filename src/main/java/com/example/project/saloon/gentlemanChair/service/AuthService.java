@@ -33,18 +33,19 @@ public class AuthService {
 
         if (user != null) throw new IllegalArgumentException("Email Already Used");
 
-        Roles role = requestDto.getRole() == null ? Roles.CLIENT :
-                switch (requestDto.getRole().toLowerCase()) {
-                    case "admin" -> Roles.ADMIN;
-                    case "manager" -> Roles.MANAGER;
-                    default -> Roles.CLIENT;
-                };
+//        Roles role = requestDto.getRole() == null ? Roles.CLIENT :
+//                switch (requestDto.getRole().toLowerCase()) {
+//                    case "admin" -> Roles.ADMIN;
+//                    case "manager" -> Roles.MANAGER;
+//                    default -> Roles.CLIENT;
+//                };
 
         user = userRepository.save(
                 User.builder()
                         .username(requestDto.getUsername())
                         .email(requestDto.getEmail())
-                        .role(role)
+                        .role(Roles.CLIENT)
+                        .phNumber(requestDto.getPhNumber())
                         .password(passwordEncoder.encode(requestDto.getPassword()))
                         .build()
         );

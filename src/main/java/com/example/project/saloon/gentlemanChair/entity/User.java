@@ -1,5 +1,6 @@
 package com.example.project.saloon.gentlemanChair.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -28,6 +30,8 @@ public class User implements UserDetails {
     private Long id;
 
     @NotNull
+    @Size(min = 3, max = 20)
+    @Column(name = "FullName")
     private String username;
 
     @NotNull
@@ -44,8 +48,12 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Roles role;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private Barber barber;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(this.role.name()));
     }
 }

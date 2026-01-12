@@ -18,5 +18,7 @@ public class SignupRequestDto {
     @NotNull(message = "Password must not be null")
     private String password;
 
-    private String role;
+    @NotNull(message = "Phone Number must not be null")
+    private Long phNumber;
+
 }

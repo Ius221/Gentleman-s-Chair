@@ -1,4 +1,4 @@
-package com.example.project.saloon.gentlemanChair.payload;
+package com.example.project.saloon.gentlemanChair.payload.auth;
 
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import lombok.AllArgsConstructor;
@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginResponseDto {
-    private String token;
+public class SignupResponseDto {
     private String username;
-    private Roles role;
+    private String email;
+    private Roles userRole;
 }

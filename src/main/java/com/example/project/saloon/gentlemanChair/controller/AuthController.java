@@ -1,10 +1,10 @@
 package com.example.project.saloon.gentlemanChair.controller;
 
-import com.example.project.saloon.gentlemanChair.payload.LoginRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.LoginResponseDto;
-import com.example.project.saloon.gentlemanChair.payload.SignupRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.SignupResponseDto;
-import com.example.project.saloon.gentlemanChair.security.AuthService;
+import com.example.project.saloon.gentlemanChair.payload.auth.LoginRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.LoginResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
+import com.example.project.saloon.gentlemanChair.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @PostMapping("/signup")
+    @PostMapping("/user/signup")
     public ResponseEntity<SignupResponseDto> signup(@Valid @RequestBody SignupRequestDto requestDto){
         SignupResponseDto responseDto = authService.signup(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);

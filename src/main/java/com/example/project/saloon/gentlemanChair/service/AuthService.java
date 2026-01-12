@@ -1,12 +1,13 @@
-package com.example.project.saloon.gentlemanChair.security;
+package com.example.project.saloon.gentlemanChair.service;
 
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
-import com.example.project.saloon.gentlemanChair.payload.LoginRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.LoginResponseDto;
-import com.example.project.saloon.gentlemanChair.payload.SignupRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.SignupResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.LoginRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.LoginResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
 import com.example.project.saloon.gentlemanChair.repository.UserRepository;
+import com.example.project.saloon.gentlemanChair.security.JwtUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;

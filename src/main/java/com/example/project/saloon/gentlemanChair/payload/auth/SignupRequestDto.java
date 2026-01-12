@@ -1,4 +1,4 @@
-package com.example.project.saloon.gentlemanChair.payload;
+package com.example.project.saloon.gentlemanChair.payload.auth;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

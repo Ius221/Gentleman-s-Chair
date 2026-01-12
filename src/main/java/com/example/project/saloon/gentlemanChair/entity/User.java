@@ -1,7 +1,10 @@
 package com.example.project.saloon.gentlemanChair.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,7 +31,12 @@ public class User implements UserDetails {
     private String username;
 
     @NotNull
+    @Email
     private String email;
+
+    @NotNull
+    @Positive
+    private Long phNumber;
 
     @NotNull
     private String password;

@@ -15,7 +15,7 @@ public class SignupRequestDto {
     @NotNull(message = "Email must not be null")
     private String email;
 
-    @NotNull(message = "Password must not be null")
+//    @NotNull(message = "Password must not be null")
     private String password;
 
     @NotNull(message = "Phone Number must not be null")

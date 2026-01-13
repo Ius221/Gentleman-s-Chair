@@ -14,7 +14,5 @@ import java.util.Set;
 public class BarberResponseDto {
     private String username;
     private String email;
-    private Long phNumber;
-    private String password;
     private Roles role;
 }

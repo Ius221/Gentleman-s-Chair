@@ -52,6 +52,7 @@ public class User implements UserDetails {
     @JsonManagedReference
     private Barber barber;
 
+    @NotNull
     private Boolean requiredPasswordChange;
 
     @Override

@@ -1,5 +1,7 @@
 package com.example.project.saloon.gentlemanChair.controller;
 
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberResponseDto;
 import com.example.project.saloon.gentlemanChair.service.BarberService;
@@ -20,8 +22,8 @@ public class AdminController {
     private BarberService barberService;
 
     @PostMapping("/create-barber")
-    public ResponseEntity<BarberResponseDto> createBarber(@Valid @RequestBody BarberRequestDto requestDto) {
-        BarberResponseDto responseDto = barberService.createBarber(requestDto);
+    public ResponseEntity<SignupResponseDto> createBarber(@Valid @RequestBody SignupRequestDto requestDto) {
+        SignupResponseDto responseDto = barberService.createBarber(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 }

@@ -2,8 +2,8 @@ package com.example.project.saloon.gentlemanChair.service;
 
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
-import com.example.project.saloon.gentlemanChair.payload.barber.BarberRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.barber.BarberResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.ChangePasswordRequest;
 import com.example.project.saloon.gentlemanChair.repository.BarberRepository;
 import com.example.project.saloon.gentlemanChair.repository.UserRepository;
@@ -28,7 +28,7 @@ public class BarberService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public BarberResponseDto createBarber(@Valid BarberRequestDto requestDto) {
+    public SignupResponseDto createBarber(@Valid SignupRequestDto requestDto) {
         if (!userRepository.findByEmail(requestDto.getEmail()).isEmpty())
             throw new IllegalArgumentException("Email already in-use");
 
@@ -46,12 +46,11 @@ public class BarberService {
                         .build()
         );
 
-        return new BarberResponseDto(
+        return new SignupResponseDto(
                 savedUser.getUsername(),
                 savedUser.getEmail(),
-                savedUser.getPhNumber(),
-                randomPassword,
-                savedUser.getRole()
+                savedUser.getRole(),
+                randomPassword
         );
     }
 

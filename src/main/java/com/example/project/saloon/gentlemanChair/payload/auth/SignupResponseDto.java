@@ -12,4 +12,6 @@ public class SignupResponseDto {
     private String username;
     private String email;
     private Roles userRole;
+
+    private String password; //Only for Barber created by Admin
 }

@@ -30,6 +30,7 @@ public class DatabaseSeeder implements CommandLineRunner {
                 .role(Roles.ADMIN)
                 .email(addEmail)
                 .phNumber(123456789L)
+                .requiredPasswordChange(false)
                 .username("admin")
                 .password(passwordEncoder.encode("admin123"))
                 .build());

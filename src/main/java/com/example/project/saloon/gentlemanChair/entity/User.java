@@ -52,6 +52,8 @@ public class User implements UserDetails {
     @JsonManagedReference
     private Barber barber;
 
+    private Boolean requiredPasswordChange;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.name()));

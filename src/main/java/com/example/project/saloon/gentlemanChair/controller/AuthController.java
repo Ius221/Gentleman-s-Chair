@@ -4,8 +4,7 @@ import com.example.project.saloon.gentlemanChair.payload.auth.LoginRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.LoginResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
-import com.example.project.saloon.gentlemanChair.payload.barber.BarberRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.barber.BarberResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.barber.ChangePasswordRequest;
 import com.example.project.saloon.gentlemanChair.service.AuthService;
 import com.example.project.saloon.gentlemanChair.service.BarberService;
 import jakarta.validation.Valid;
@@ -39,9 +38,10 @@ public class AuthController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @PostMapping("/admin/add-barber")
-    public ResponseEntity<BarberResponseDto> createBarber(@Valid @RequestBody BarberRequestDto requestDto) {
-        BarberResponseDto responseDto = barberService.createBarber(requestDto);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+    @PostMapping("/change-password")
+    public ResponseEntity<String> changePass(@Valid @RequestBody ChangePasswordRequest request) {
+
+        return barberService.changePassword(request);
+
     }
 }

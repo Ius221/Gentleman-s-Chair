@@ -1,4 +1,4 @@
-package com.example.project.saloon.gentlemanChair.config;
+package com.example.project.saloon.gentlemanChair.component;
 
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;

@@ -16,8 +16,5 @@ public class BarberResponseDto {
     private String email;
     private Long phNumber;
     private String password;
-    private Integer experience;
-    private Set<String> specialization;
     private Roles role;
-    private String bio;
 }

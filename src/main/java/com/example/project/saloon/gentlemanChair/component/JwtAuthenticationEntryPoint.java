@@ -1,4 +1,4 @@
-package com.example.project.saloon.gentlemanChair.config;
+package com.example.project.saloon.gentlemanChair.component;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

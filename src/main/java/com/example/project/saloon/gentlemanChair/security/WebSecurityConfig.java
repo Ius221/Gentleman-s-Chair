@@ -1,6 +1,6 @@
 package com.example.project.saloon.gentlemanChair.security;
 
-import com.example.project.saloon.gentlemanChair.config.JwtAuthenticationEntryPoint;
+import com.example.project.saloon.gentlemanChair.component.JwtAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,8 +21,8 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) {
         httpSecurity
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/auth/admin/**").hasAuthority("ADMIN")
                         .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex

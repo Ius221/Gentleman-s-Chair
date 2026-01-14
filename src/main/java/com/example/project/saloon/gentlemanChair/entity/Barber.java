@@ -32,6 +32,13 @@ public class Barber {
     @NotNull
     private String bio;
 
+    @NotNull
+    private Boolean isAvailable;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Set<WorkingDays> workingDays;
+
     @OneToOne(mappedBy = "barber")
     @JsonBackReference
     private User user;

@@ -23,6 +23,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(req -> req
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/manager/**").hasAuthority("MANAGER")
                         .anyRequest().authenticated()
                 )
                 .exceptionHandling(ex -> ex

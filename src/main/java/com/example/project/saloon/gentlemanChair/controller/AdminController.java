@@ -3,6 +3,8 @@ package com.example.project.saloon.gentlemanChair.controller;
 import com.example.project.saloon.gentlemanChair.payload.admin.AllBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.barber.AdminEditBarberRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.barber.AdminEditBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.service.AdminService;
 import com.example.project.saloon.gentlemanChair.service.BarberService;
 import jakarta.validation.Valid;
@@ -30,5 +32,12 @@ public class AdminController {
     public ResponseEntity<AllBarberResponseDto> showAllBarber() {
         AllBarberResponseDto responseDto = adminService.fetchAllBarber();
         return new ResponseEntity<>(responseDto, HttpStatus.FOUND);
+    }
+
+    @PutMapping("/edit-barber")
+    public ResponseEntity<AdminEditBarberResponseDto> adminEditBarber(@Valid @RequestBody AdminEditBarberRequestDto requestDto) {
+        AdminEditBarberResponseDto responseDto = adminService.editBarber(requestDto);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 }

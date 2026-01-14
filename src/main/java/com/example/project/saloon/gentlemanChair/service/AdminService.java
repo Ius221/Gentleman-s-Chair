@@ -2,9 +2,12 @@ package com.example.project.saloon.gentlemanChair.service;
 
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
+import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
 import com.example.project.saloon.gentlemanChair.payload.admin.AllBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.barber.AdminEditBarberRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.barber.AdminEditBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.repository.BarberRepository;
 import com.example.project.saloon.gentlemanChair.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -13,7 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class AdminService {
@@ -72,6 +77,41 @@ public class AdminService {
                         .map(e -> e.getUsername())
                         .toList()
                 )
+                .build();
+    }
+
+    public AdminEditBarberResponseDto editBarber(@Valid AdminEditBarberRequestDto requestDto) {
+
+        User currUser = userRepository.findByEmail(requestDto.getEmail())
+                .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + requestDto.getEmail()));
+
+        Set<WorkingDays> workingDays = requestDto.getWorkingDays()
+                .stream()
+                .map(day -> switch (day.toLowerCase()) {
+                    case "monday", "mon" -> WorkingDays.MONDAY;
+                    case "tuesday", "tue" -> WorkingDays.TUESDAY;
+                    case "wednesday", "wed" -> WorkingDays.WEDNESDAY;
+                    case "thursday", "thurs" -> WorkingDays.THURSDAY;
+                    case "friday", "fri" -> WorkingDays.FRIDAY;
+                    case "saturday", "sat" -> WorkingDays.SATURDAY;
+                    case "sunday", "sun" -> WorkingDays.SUNDAY;
+                    default -> throw new IllegalArgumentException("Unexpected value: " + day);
+                })
+                .collect(Collectors.toSet());
+
+        currUser.getBarber().setIsAvailable(requestDto.getIsAvailable());
+        currUser.getBarber().setWorkingDays(workingDays);
+        currUser.getBarber().setWorkingHour(requestDto.getWorkingHour());
+
+        currUser = userRepository.save(currUser);
+
+
+        return AdminEditBarberResponseDto
+                .builder()
+                .isAvailable(currUser.getBarber().getIsAvailable())
+                .fullName(currUser.getUsername())
+                .workingHour(currUser.getBarber().getWorkingHour())
+                .workingDays(currUser.getBarber().getWorkingDays())
                 .build();
     }
 }

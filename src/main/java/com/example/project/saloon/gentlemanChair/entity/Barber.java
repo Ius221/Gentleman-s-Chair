@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Instant;
 import java.util.Set;
 
 @Entity
@@ -42,4 +43,11 @@ public class Barber {
     @OneToOne(mappedBy = "barber")
     @JsonBackReference
     private User user;
+
+    @NotNull
+    private String workingHour;
+
+    //    @CreationTimestamp
+    @Column(updatable = false,name = "Time")
+    private Instant transactionTime= Instant.now();
 }

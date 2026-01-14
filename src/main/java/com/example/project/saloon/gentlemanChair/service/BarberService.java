@@ -25,7 +25,6 @@ public class BarberService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
     public ResponseEntity<String> changePassword(ChangePasswordRequest request) {
 
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
@@ -73,6 +72,7 @@ public class BarberService {
                 .bio(requestDto.getBio())
                 .isAvailable(requestDto.getIsAvailable())
                 .workingDays(work)
+                .workingHour("9:00 - 19:00")
                 .user(user)
                 .build();
 
@@ -88,6 +88,7 @@ public class BarberService {
                 .experience(savedUser.getBarber().getExperience())
                 .specialization(savedUser.getBarber().getSpecialization())
                 .bio(savedUser.getBarber().getBio())
+                .workingHour(savedUser.getBarber().getWorkingHour())
                 .isAvailable(savedUser.getBarber().getIsAvailable())
                 .phNumber(savedUser.getPhNumber())
                 .workingDays(savedUser.getBarber().getWorkingDays())

@@ -1,16 +1,12 @@
 package com.example.project.saloon.gentlemanChair.service;
 
 import com.example.project.saloon.gentlemanChair.entity.Barber;
-import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
 import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
-import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.ChangePasswordRequest;
 import com.example.project.saloon.gentlemanChair.repository.UserRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +16,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Service
 public class BarberService {
@@ -30,37 +25,12 @@ public class BarberService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public SignupResponseDto createBarber(@Valid SignupRequestDto requestDto) {
-        if (userRepository.findByEmail(requestDto.getEmail()).isPresent())
-            throw new IllegalArgumentException("Email already in-use");
-
-        String randomPassword = UUID.randomUUID().toString().split("-")[0];
-        System.out.println(randomPassword);
-        User savedUser = userRepository.save(
-                User
-                        .builder()
-                        .username(requestDto.getUsername())
-                        .email(requestDto.getEmail())
-                        .phNumber(requestDto.getPhNumber())
-                        .requiredPasswordChange(true)
-                        .password(passwordEncoder.encode(randomPassword))
-                        .role(Roles.MANAGER)
-                        .build()
-        );
-
-        return new SignupResponseDto(
-                savedUser.getUsername(),
-                savedUser.getEmail(),
-                savedUser.getRole(),
-                randomPassword
-        );
-    }
 
     public ResponseEntity<String> changePassword(ChangePasswordRequest request) {
 
         User user = userRepository.findByEmail(request.getEmail()).orElseThrow();
 
-        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+        if (!request.getOldPassword().equals(user.getPassword())) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("The temporary password you entered is incorrect.");
         }

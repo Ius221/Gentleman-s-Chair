@@ -23,7 +23,5 @@ public class BarberController {
     public ResponseEntity<BarberResponseDto> addDetailsToBarber(@Valid @RequestBody BarberRequestDto requestDto) {
         BarberResponseDto responseDto = barberService.addDetails(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
-//        return new ResponseEntity<>("responseDto", HttpStatus.OK);
-
     }
 }

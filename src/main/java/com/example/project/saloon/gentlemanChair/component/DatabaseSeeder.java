@@ -25,8 +25,8 @@ public class DatabaseSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        String adminEmail = "admin@gentleman.com";
-        String barberEmail = "barber@gentleman.com";
+        String adminEmail = "gentleman@yopmail.com";
+        String barberEmail = "gentlemanbarber@yopmail.com";
 
         if (!userRepository.findByEmail(adminEmail).isEmpty()) {
             System.out.println("Admin already Exists");

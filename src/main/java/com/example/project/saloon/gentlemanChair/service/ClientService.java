@@ -1,5 +1,6 @@
 package com.example.project.saloon.gentlemanChair.service;
 
+import com.example.project.saloon.gentlemanChair.config.EmailResponse;
 import com.example.project.saloon.gentlemanChair.entity.*;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.client.BookAppointmentRequestDto;
@@ -23,6 +24,8 @@ public class ClientService {
     private BarberRepository barberRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private EmailService emailService;
 
 
     public String newAccount(@Valid SignupRequestDto requestDto) {
@@ -65,6 +68,20 @@ public class ClientService {
                 .orElseThrow(() -> new IllegalArgumentException("Barber Email Not Found"));
         BarberEntity barber = currUser.getBarberEntity();
 
+        Integer totalMoney = 0;
+
+        emailService.sendSimpleEmail(
+                barber.getUser().getEmail(),
+                "New Client Booking Request – Action Required",
+                EmailResponse.getBarberMail(
+                        barber.getUser().getUsername(),
+                        requestDto.getTime(),
+                        requestDto.getDate(),
+                        requestDto.getServices(),
+                        totalMoney
+                )
+        );
+
         return BookAppointmentResponseDto
                 .builder()
                 .appointmentStatus(Status.PENDING)
@@ -74,10 +91,5 @@ public class ClientService {
                 .date(requestDto.getDate())
                 .services(requestDto.getServices())
                 .build();
-
-
-//        return null;
-
-
     }
 }

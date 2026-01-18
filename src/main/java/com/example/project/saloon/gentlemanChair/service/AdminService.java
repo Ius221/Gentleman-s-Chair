@@ -6,8 +6,8 @@ import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
 import com.example.project.saloon.gentlemanChair.payload.admin.AllBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
-import com.example.project.saloon.gentlemanChair.payload.barber.AdminEditBarberRequestDto;
-import com.example.project.saloon.gentlemanChair.payload.barber.AdminEditBarberResponseDto;
+import com.example.project.saloon.gentlemanChair.payload.admin.EditBarberRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.admin.EditBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.repository.BarberRepository;
 import com.example.project.saloon.gentlemanChair.repository.UserRepository;
 import jakarta.validation.Valid;
@@ -43,6 +43,7 @@ public class AdminService {
                         .builder()
                         .username(requestDto.getUsername())
                         .email(requestDto.getEmail())
+
                         .phNumber(requestDto.getPhNumber())
                         .requiredPasswordChange(true)
                         .password(randomPassword)
@@ -80,7 +81,7 @@ public class AdminService {
                 .build();
     }
 
-    public AdminEditBarberResponseDto editBarber(@Valid AdminEditBarberRequestDto requestDto) {
+    public EditBarberResponseDto editBarber(@Valid EditBarberRequestDto requestDto) {
 
         User currUser = userRepository.findByEmail(requestDto.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("User not found with email: " + requestDto.getEmail()));
@@ -106,7 +107,7 @@ public class AdminService {
         currUser = userRepository.save(currUser);
 
 
-        return AdminEditBarberResponseDto
+        return EditBarberResponseDto
                 .builder()
                 .isAvailable(currUser.getBarber().getIsAvailable())
                 .fullName(currUser.getUsername())

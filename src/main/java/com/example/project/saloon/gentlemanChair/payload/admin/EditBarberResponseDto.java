@@ -1,4 +1,4 @@
-package com.example.project.saloon.gentlemanChair.payload.barber;
+package com.example.project.saloon.gentlemanChair.payload.admin;
 
 import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
 import lombok.AllArgsConstructor;
@@ -12,7 +12,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdminEditBarberResponseDto {
+public class EditBarberResponseDto {
 
     private Boolean isAvailable;
     private String fullName;

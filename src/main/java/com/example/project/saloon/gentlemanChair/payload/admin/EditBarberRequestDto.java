@@ -1,4 +1,4 @@
-package com.example.project.saloon.gentlemanChair.payload.barber;
+package com.example.project.saloon.gentlemanChair.payload.admin;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AdminEditBarberRequestDto {
+public class EditBarberRequestDto {
 
     @Email
     @NotNull

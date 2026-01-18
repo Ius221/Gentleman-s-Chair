@@ -13,6 +13,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 @Service
 public class ClientService {
 
@@ -68,7 +73,26 @@ public class ClientService {
                 .orElseThrow(() -> new IllegalArgumentException("Barber Email Not Found"));
         BarberEntity barber = currUser.getBarberEntity();
 
-        Integer totalMoney = 0;
+        Map<String, Map<String, Integer>> allServices = ServiceWithPrice.getServiceAndPrices();
+
+        Map<String, Integer> servicePrice = new HashMap<>();
+
+        Set<String> requestedServices = new HashSet<>(requestDto.getServices());
+
+        allServices.values().forEach(serviceMap -> {
+            serviceMap.forEach((service, price) -> {
+                if (requestedServices.contains(service)) {
+                    servicePrice.put(service, price);
+                }
+            });
+        });
+
+
+        Integer totalMoney = servicePrice
+                .values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
 
         emailService.sendSimpleEmail(
                 barber.getUser().getEmail(),
@@ -77,7 +101,7 @@ public class ClientService {
                         barber.getUser().getUsername(),
                         requestDto.getTime(),
                         requestDto.getDate(),
-                        requestDto.getServices(),
+                        requestedServices,
                         totalMoney
                 )
         );

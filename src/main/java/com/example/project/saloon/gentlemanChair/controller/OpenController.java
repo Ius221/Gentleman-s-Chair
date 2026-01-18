@@ -36,10 +36,10 @@ public class OpenController {
     @GetMapping("/send")
     public String triggerMail() {
         emailService.sendSimpleEmail(
-                "ayushg6996@gmail.com",
+                "gentleman@yopmail.com",
                 "Hello from spring boot",
                 "THis is a test mail. Is it working fine??"
         );
-        return "Email Send Successfully";
+        return "Email Send Successfully to `gentleman@yopmail.com`";
     }
 }

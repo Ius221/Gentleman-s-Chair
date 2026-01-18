@@ -53,7 +53,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "Barber")
     private BarberEntity barberEntity;
 
-    @OneToOne()
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
     @JoinColumn(name = "Client")
     private ClientEntity clientEntity;

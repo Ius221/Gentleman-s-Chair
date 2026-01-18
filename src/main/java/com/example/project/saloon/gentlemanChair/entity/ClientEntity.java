@@ -10,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Entity
@@ -21,13 +22,18 @@ public class ClientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Appointment currentAppointment;
+    private List<AppointmentEntity> currentAppointmentEntity;
 
-    @OneToOne(mappedBy = "clientEntity", cascade = CascadeType.ALL)
+//    @OneToOne(mappedBy = "clientEntity")
+    @OneToOne
     @JsonBackReference
     private User user;
+
+//    @OneToMany
+//    @JsonManagedReference
+//    private List<AppointmentEntity> allAppointment;
 
     @NotNull
     private Integer completedAppointments;

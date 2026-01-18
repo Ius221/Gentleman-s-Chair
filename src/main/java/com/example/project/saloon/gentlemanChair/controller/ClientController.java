@@ -1,6 +1,7 @@
 package com.example.project.saloon.gentlemanChair.controller;
 
-import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.client.BookAppointmentRequestDto;
+import com.example.project.saloon.gentlemanChair.payload.client.BookAppointmentResponseDto;
 import com.example.project.saloon.gentlemanChair.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,11 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
+    @PostMapping("/book-appointment")
+    public ResponseEntity<BookAppointmentResponseDto> bookAnAppointment(@Valid @RequestBody BookAppointmentRequestDto requestDto) {
 
+        BookAppointmentResponseDto responseDto = clientService.bookAppointment( requestDto);
+        return new ResponseEntity<>(responseDto, HttpStatus.OK);
 
+    }
 }

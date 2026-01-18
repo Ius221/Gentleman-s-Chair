@@ -17,7 +17,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Barber {
+public class BarberEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +40,7 @@ public class Barber {
     @NotNull
     private Set<WorkingDays> workingDays;
 
-    @OneToOne(mappedBy = "barber")
+    @OneToOne(mappedBy = "barberEntity")
     @JsonBackReference
     private User user;
 

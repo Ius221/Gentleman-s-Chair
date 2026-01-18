@@ -7,6 +7,7 @@ import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.ChangePasswordRequest;
 import com.example.project.saloon.gentlemanChair.service.AuthService;
 import com.example.project.saloon.gentlemanChair.service.BarberService;
+import com.example.project.saloon.gentlemanChair.service.ClientService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,8 @@ public class AuthController {
     private AuthService authService;
     @Autowired
     private BarberService barberService;
+    @Autowired
+    private ClientService clientService;
 
     @PostMapping("/signup")
     public ResponseEntity<SignupResponseDto> signup(@Valid @RequestBody SignupRequestDto requestDto) {
@@ -43,5 +46,11 @@ public class AuthController {
 
         return barberService.changePassword(request);
 
+    }
+
+    @PostMapping("/new-account")
+    public ResponseEntity<?> createNewAccount(@Valid @RequestBody SignupRequestDto requestDto) {
+        String status = clientService.newAccount(requestDto);
+        return new ResponseEntity<>(status, HttpStatus.CREATED);
     }
 }

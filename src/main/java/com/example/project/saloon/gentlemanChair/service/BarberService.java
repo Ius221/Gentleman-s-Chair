@@ -1,6 +1,6 @@
 package com.example.project.saloon.gentlemanChair.service;
 
-import com.example.project.saloon.gentlemanChair.entity.Barber;
+import com.example.project.saloon.gentlemanChair.entity.BarberEntity;
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
 import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
@@ -68,7 +68,7 @@ public class BarberService {
                 WorkingDays.SUNDAY
         );
 
-        Barber barber = Barber
+        BarberEntity barberEntity = BarberEntity
                 .builder()
                 .experience(requestDto.getExperience())
                 .specialization(requestDto.getSpecialization())
@@ -79,7 +79,7 @@ public class BarberService {
                 .user(user)
                 .build();
 
-        user.setBarber(barber);
+        user.setBarberEntity(barberEntity);
 
         User savedUser = userRepository.save(user);
 
@@ -88,13 +88,13 @@ public class BarberService {
                 .username(savedUser.getUsername())
                 .email(savedUser.getEmail())
                 .role(savedUser.getRole())
-                .experience(savedUser.getBarber().getExperience())
-                .specialization(savedUser.getBarber().getSpecialization())
-                .bio(savedUser.getBarber().getBio())
-                .workingHour(savedUser.getBarber().getWorkingHour())
-                .isAvailable(savedUser.getBarber().getIsAvailable())
+                .experience(savedUser.getBarberEntity().getExperience())
+                .specialization(savedUser.getBarberEntity().getSpecialization())
+                .bio(savedUser.getBarberEntity().getBio())
+                .workingHour(savedUser.getBarberEntity().getWorkingHour())
+                .isAvailable(savedUser.getBarberEntity().getIsAvailable())
                 .phNumber(savedUser.getPhNumber())
-                .workingDays(savedUser.getBarber().getWorkingDays())
+                .workingDays(savedUser.getBarberEntity().getWorkingDays())
                 .build();
 
     }

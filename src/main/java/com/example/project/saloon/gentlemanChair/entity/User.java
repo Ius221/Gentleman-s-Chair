@@ -50,7 +50,13 @@ public class User implements UserDetails {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonManagedReference
-    private Barber barber;
+    @JoinColumn(name = "Barber")
+    private BarberEntity barberEntity;
+
+    @OneToOne()
+    @JsonManagedReference
+    @JoinColumn(name = "Client")
+    private ClientEntity clientEntity;
 
     @NotNull
     private Boolean requiredPasswordChange;

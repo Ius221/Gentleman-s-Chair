@@ -3,7 +3,6 @@ package com.example.project.saloon.gentlemanChair.service;
 import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
 import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
-import com.example.project.saloon.gentlemanChair.payload.admin.AllBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.auth.SignupResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.admin.EditBarberRequestDto;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -78,19 +76,19 @@ public class AdminService {
                 })
                 .collect(Collectors.toSet());
 
-        currUser.getBarber().setIsAvailable(requestDto.getIsAvailable());
-        currUser.getBarber().setWorkingDays(workingDays);
-        currUser.getBarber().setWorkingHour(requestDto.getWorkingHour());
+        currUser.getBarberEntity().setIsAvailable(requestDto.getIsAvailable());
+        currUser.getBarberEntity().setWorkingDays(workingDays);
+        currUser.getBarberEntity().setWorkingHour(requestDto.getWorkingHour());
 
         currUser = userRepository.save(currUser);
 
 
         return EditBarberResponseDto
                 .builder()
-                .isAvailable(currUser.getBarber().getIsAvailable())
+                .isAvailable(currUser.getBarberEntity().getIsAvailable())
                 .fullName(currUser.getUsername())
-                .workingHour(currUser.getBarber().getWorkingHour())
-                .workingDays(currUser.getBarber().getWorkingDays())
+                .workingHour(currUser.getBarberEntity().getWorkingHour())
+                .workingDays(currUser.getBarberEntity().getWorkingDays())
                 .build();
     }
 }

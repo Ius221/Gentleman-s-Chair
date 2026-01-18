@@ -24,9 +24,5 @@ public class BarberController {
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
     }
 
-    @GetMapping("/all-barbers")
-    public ResponseEntity<AllBarberResponseDto> showAllBarber() {
-        AllBarberResponseDto responseDto = barberService.fetchAllBarber();
-        return new ResponseEntity<>(responseDto, HttpStatus.FOUND);
-    }
+
 }

@@ -29,11 +29,12 @@ public class AuthService {
     private JwtUtil jwtUtil;
 
     public SignupResponseDto signup(SignupRequestDto requestDto) {
-        User user = userRepository.findByEmail(requestDto.getEmail()).orElse(null);
+        userRepository.findByEmail(requestDto.getEmail())
+                .ifPresent(n -> {
+                    throw new IllegalArgumentException("Email Already Exists");
+                });
 
-        if (user != null) throw new IllegalArgumentException("Email Already Used");
-
-        user = userRepository.save(
+        User user = userRepository.save(
                 User.builder()
                         .username(requestDto.getUsername())
                         .email(requestDto.getEmail())

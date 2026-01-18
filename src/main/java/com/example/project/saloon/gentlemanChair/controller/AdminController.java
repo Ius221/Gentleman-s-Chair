@@ -28,12 +28,6 @@ public class AdminController {
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
-    @GetMapping("/all-barbers")
-    public ResponseEntity<AllBarberResponseDto> showAllBarber() {
-        AllBarberResponseDto responseDto = adminService.fetchAllBarber();
-        return new ResponseEntity<>(responseDto, HttpStatus.FOUND);
-    }
-
     @PutMapping("/edit-barber")
     public ResponseEntity<EditBarberResponseDto> adminEditBarber(@Valid @RequestBody EditBarberRequestDto requestDto) {
         EditBarberResponseDto responseDto = adminService.editBarber(requestDto);

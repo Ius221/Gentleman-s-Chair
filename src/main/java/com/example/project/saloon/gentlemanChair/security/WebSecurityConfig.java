@@ -26,6 +26,7 @@ public class WebSecurityConfig {
                         .requestMatchers(OpenReqConstant.getAllOpenRequest()).permitAll()
                         .requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers("/admin/**").hasAuthority("ADMIN")
+                        .requestMatchers("/client/**").hasAuthority("CLIENT")
                         .requestMatchers("/manager/**").hasAuthority("MANAGER")
                         .anyRequest().authenticated()
                 )

@@ -1,8 +1,10 @@
 package com.example.project.saloon.gentlemanChair.service;
 
 import com.example.project.saloon.gentlemanChair.entity.Barber;
+import com.example.project.saloon.gentlemanChair.entity.Roles;
 import com.example.project.saloon.gentlemanChair.entity.User;
 import com.example.project.saloon.gentlemanChair.entity.WorkingDays;
+import com.example.project.saloon.gentlemanChair.payload.admin.AllBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.ChangePasswordRequest;
@@ -15,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -94,5 +97,27 @@ public class BarberService {
                 .workingDays(savedUser.getBarber().getWorkingDays())
                 .build();
 
+    }
+
+    public AllBarberResponseDto fetchAllBarber() {
+
+        List<User> allUsers = userRepository.findAll();
+
+        List<User> userThatContainsBarber = allUsers
+                .stream()
+                .filter(barber -> barber.getRole() == Roles.MANAGER)
+                .toList();
+
+        if (userThatContainsBarber.isEmpty()) throw new IllegalArgumentException("No Barber Present");
+
+        return AllBarberResponseDto
+                .builder()
+                .totalNumber(userThatContainsBarber.size())
+                .name(userThatContainsBarber
+                        .stream()
+                        .map(e -> e.getUsername())
+                        .toList()
+                )
+                .build();
     }
 }

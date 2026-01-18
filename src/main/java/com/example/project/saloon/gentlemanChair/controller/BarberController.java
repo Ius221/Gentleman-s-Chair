@@ -1,16 +1,15 @@
 package com.example.project.saloon.gentlemanChair.controller;
 
+import com.example.project.saloon.gentlemanChair.payload.admin.AllBarberResponseDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberRequestDto;
 import com.example.project.saloon.gentlemanChair.payload.barber.BarberResponseDto;
+import com.example.project.saloon.gentlemanChair.service.AdminService;
 import com.example.project.saloon.gentlemanChair.service.BarberService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/manager")
@@ -23,5 +22,11 @@ public class BarberController {
     public ResponseEntity<BarberResponseDto> addDetailsToBarber(@Valid @RequestBody BarberRequestDto requestDto) {
         BarberResponseDto responseDto = barberService.addDetails(requestDto);
         return new ResponseEntity<>(responseDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/all-barbers")
+    public ResponseEntity<AllBarberResponseDto> showAllBarber() {
+        AllBarberResponseDto responseDto = barberService.fetchAllBarber();
+        return new ResponseEntity<>(responseDto, HttpStatus.FOUND);
     }
 }

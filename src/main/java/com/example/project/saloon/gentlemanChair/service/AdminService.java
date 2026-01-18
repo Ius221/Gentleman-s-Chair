@@ -59,28 +59,6 @@ public class AdminService {
         );
     }
 
-    public AllBarberResponseDto fetchAllBarber() {
-
-        List<User> allUsers = userRepository.findAll();
-
-        List<User> userThatContainsBarber = allUsers
-                .stream()
-                .filter(barber -> barber.getRole() == Roles.MANAGER)
-                .toList();
-
-        if (userThatContainsBarber.isEmpty()) throw new IllegalArgumentException("No Barber Present");
-
-        return AllBarberResponseDto
-                .builder()
-                .totalNumber(userThatContainsBarber.size())
-                .name(userThatContainsBarber
-                        .stream()
-                        .map(e -> e.getUsername())
-                        .toList()
-                )
-                .build();
-    }
-
     public EditBarberResponseDto editBarber(@Valid EditBarberRequestDto requestDto) {
 
         User currUser = userRepository.findByEmail(requestDto.getEmail())
